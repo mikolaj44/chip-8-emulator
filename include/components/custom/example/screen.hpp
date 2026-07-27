@@ -18,7 +18,7 @@ public:
         return false;
     }
 
-    void refresh()
+    void update()
     {
         std::cout << "[SCREEN] refreshing screen" << "\n";
     }
