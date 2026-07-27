@@ -31,7 +31,7 @@ cmake -B build -DTARGET_NAME=[raylib|example|all]
 cmake --build build
 ```
 
-There are also builds available for Linux and Windows in *Releases* that can be run without installing any dependencies.
+There are also builds available for Linux and Windows in [Releases](https://github.com/mikolaj44/chip-8-emulator/releases) that can be run without installing any dependencies.
 
 ## Running the standalone emulator app
 
