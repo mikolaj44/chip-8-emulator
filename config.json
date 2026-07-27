@@ -1,0 +1,31 @@
+{
+    "program": {
+        "rom_path": "roms/Pong (1 player).ch8",
+        "start_byte": 512
+    },
+    "screen": {
+        "on_color": {
+            "r": 255,
+            "g": 255,
+            "b": 255
+        },
+        "off_color": {
+            "r": 0,
+            "g": 0,
+            "b": 0
+        },
+        "pixel_size": 16,
+        "frequency_hz": 60
+    },
+    "cpu": {
+        "frequency_hz": 1000
+    },
+    "timers":
+    {
+        "frequency_hz": 60
+    },
+    "buzzer": {
+        "frequency_hz": 440,
+        "volume": 0.1
+    }
+}
