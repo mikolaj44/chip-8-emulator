@@ -10,7 +10,7 @@ Sources used:
 - [This awesome test suite from Timendus](https://github.com/Timendus/chip8-test-suite)
 - [Pong game from kripod's collection](https://github.com/kripod/chip8-roms)
 
-The project can be used as a standalone Linux/Windows app (haven't tested MacOS but should work too) or as a base on top of which custom components can be easily added, for example to make it work on a Raspberry PI Pico with some real LCD screen. Windows was tested only with g++ via MinGW.
+The project can be used as a standalone Linux/Windows app (haven't tested MacOS but should work too) or as a base on top of which custom components can be easily added, for example to make it work on a Raspberry PI Zero with some real LCD screen. Windows was tested only with g++ via MinGW.
 
 Only prerequisites should be CMake >= 3.13 and standard build tools for your system.
 

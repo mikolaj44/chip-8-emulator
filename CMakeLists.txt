@@ -11,7 +11,6 @@ endif()
 
 project("chip-8-emulator")
 
-
 function(INCLUDE_TARGET_FILES THIS_TARGET_NAME)
   file(
     GLOB_RECURSE ALL_SOURCES CONFIGURE_DEPENDS

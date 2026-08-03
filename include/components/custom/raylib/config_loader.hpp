@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <variant>
+#include <format>
 
 #include "components/core/cpu.hpp"
 #include "components/custom/raylib/screen.hpp"

@@ -85,13 +85,16 @@ void cpu<Screen, Keyboard, Buzzer>::main_execution_loop()
 {
     while(!is_stopped)
     {
-        uint16_t opcode = mem.get_dword(PC);
+        if(ms_from_now(prev_cpu_execute_ts) >= cpu_sleep_ms)
+        {
+            uint16_t opcode = mem.get_dword(PC);
 
-        (this->*get_operation(opcode))(opcode);
+            (this->*get_operation(opcode))(opcode);
 
-        PC += 2;
+            PC += 2;
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(cpu_sleep_ms));
+            prev_cpu_execute_ts = current_timestamp();
+        }
     }
 }
 
@@ -123,9 +126,12 @@ void cpu<Screen, Keyboard, Buzzer>::screen_loop()
             screen_draw_proxy.call();
         }
 
-        screen.update();
+        if(ms_from_now(prev_screen_refresh_ts) >= screen_sleep_ms)
+        {
+            screen.update();
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(screen_sleep_ms));
+            prev_screen_refresh_ts = current_timestamp();
+        }
     }
 }
 
@@ -177,28 +183,32 @@ void cpu<Screen, Keyboard, Buzzer>::buzzer_loop()
 
     while(!is_stopped)
     {
-        if(static_cast<uint8_t>(sound_timer) != 0 && !buzzer_is_playing)
+        if(ms_from_now(prev_timer_decrement_ts) >= timer_sleep_ms)
         {
-            buzzer.start();
+            if(static_cast<uint8_t>(sound_timer) != 0 && !buzzer_is_playing)
+            {
+                buzzer.start();
 
-            buzzer_is_playing = true;
+                buzzer_is_playing = true;
+            }
+
+            else if(static_cast<uint8_t>(sound_timer) == 0 && buzzer_is_playing)
+            {
+                buzzer.stop();
+
+                buzzer_is_playing = false;
+            }
+
+            sound_timer.decrement();
+            delay_timer.decrement();
+
+            prev_timer_decrement_ts = current_timestamp();
         }
-        else if(static_cast<uint8_t>(sound_timer) == 0 && buzzer_is_playing)
-        {
-            buzzer.stop();
-
-            buzzer_is_playing = false;
-        }
-
-        sound_timer.decrement();
-        delay_timer.decrement();
 
         if constexpr (requires {buzzer.update();} )
         {
             buzzer.update();
         }
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(timer_sleep_ms));
     }
 }
 

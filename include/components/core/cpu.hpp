@@ -7,6 +7,7 @@
 
 #include "components/core/memory.hpp"
 #include "components/core/timer.hpp"
+#include "utils/time_utils.hpp"
 #include "utils/function_call_proxy.hpp"
 
 template<typename Screen, typename Keyboard, typename Buzzer>
@@ -63,6 +64,10 @@ private:
     size_t cpu_sleep_ms;
     size_t timer_sleep_ms;
     size_t screen_sleep_ms;
+
+    timestamp prev_cpu_execute_ts = current_timestamp();
+    timestamp prev_timer_decrement_ts = current_timestamp();
+    timestamp prev_screen_refresh_ts = current_timestamp();
 
     std::random_device dev;
     std::mt19937 rng{dev()};

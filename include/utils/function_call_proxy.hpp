@@ -11,7 +11,7 @@ public:
     function_call_proxy(std::function<OutputArg(InputArgs...)> func)
     {
         _func = func;
-    };
+    }
 
     void set(InputArgs... args)
     {
